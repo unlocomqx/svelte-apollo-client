@@ -4,13 +4,13 @@ import { restoring } from "../restore";
 
 describe("query", () => {
 
-	const MESSAGES = gql`
-	query messages {
-		message
-	}
-`;
-
 	it("should restore client data", async () => {
+		const MESSAGES = gql`
+			query messages {
+				message
+			}
+		`;
+
 		const client = SvelteApolloClient({
 			cache: new InMemoryCache()
 		});
