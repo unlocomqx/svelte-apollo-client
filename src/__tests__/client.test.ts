@@ -1,11 +1,13 @@
 import { HttpLink, InMemoryCache } from "@apollo/client/core";
-import fetch from "cross-fetch";
 import { SvelteApolloClient } from "../client";
 
 describe("client", () => {
   it("should create svelte apollo client", () => {
     const client = SvelteApolloClient({
-      link : new HttpLink({ uri: "/", fetch }),
+      link : new HttpLink({
+        uri: "/", fetch: () => {
+        }
+      }),
       cache: new InMemoryCache()
     });
 

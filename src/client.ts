@@ -6,8 +6,9 @@ import type {
 	SubscriptionOptions,
 	WatchQueryOptions
 } from "@apollo/client";
+import { FetchResult } from "@apollo/client";
 import { ApolloClient } from "@apollo/client/core";
-import { Mutate, mutation } from "./mutation";
+import { MutateOptions } from "./mutation";
 import { ReadableQuery, ReadableResult } from "./observable";
 import { query } from "./query";
 import { restore } from "./restore";
@@ -24,8 +25,9 @@ export interface SvelteApolloClient<T> extends ApolloClient<T> {
 	) => ReadableQuery<TData>,
 
 	mutate: <T = unknown, TVariables = unknown>(
-		mutation: DocumentNode
-	) => Mutate<T, TVariables>
+		mutation: DocumentNode,
+		options: MutateOptions<T, TVariables>
+	) => Promise<FetchResult<T>>
 
 	restore: <TData = unknown, TVariables = OperationVariables>(
 		query: DocumentNode,
@@ -49,10 +51,13 @@ export function SvelteApolloClient<T> (options: SvelteApolloClientOption<T>): Sv
 		return query(apolloClient, _query, options);
 	};
 
+	const originalMutateFn = apolloClient.mutate;
+
 	(apolloClient as any).mutate = function <T = unknown, TVariables = unknown> (
-		_mutation: DocumentNode
+		mutation: DocumentNode,
+		options: MutateOptions<T, TVariables>
 	) {
-		return mutation(apolloClient, _mutation);
+		return originalMutateFn({ mutation, ...options });
 	};
 
 	(apolloClient as any).restore = function <TData = unknown, TVariables = OperationVariables> (
