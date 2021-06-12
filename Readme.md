@@ -42,7 +42,7 @@ import { client } from 'path/to/client';
 
 ## Query
 
-```sveltehtml
+```svelte
 
 <script>
 	import { client } from "$lib/client";
