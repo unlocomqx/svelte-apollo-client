@@ -1,0 +1,9 @@
+{
+  "name": "svelte-apollo-client",
+  "version": "0.0.1",
+  "description": "Svelte integration for Apollo GraphQL.",
+  "main": "index.js",
+  "repository": "https://github.com/unlocomqx/svelte-apollo-client",
+  "author": "Tuni-Soft",
+  "license": "MIT"
+}
