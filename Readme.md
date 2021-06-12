@@ -45,39 +45,35 @@ import { client } from 'path/to/client';
 ```sveltehtml
 
 <script>
-	import { client } from 'path/to/client';
-	import { gql } from '@apollo/client/core';
+	import { client } from "$lib/client";
+	import { gql } from "@apollo/client/core";
 
-	let products;
+	let rates;
 
-	function getProducts() {
-		products = client.query(gql`
-    query {
-      products (first: 5) {
-        edges {
-        node {
-            id
-            title
-          }
+	function getRates() {
+		rates = client.query(gql`
+      query GetRates {
+        rates(currency: "USD") {
+          currency,
+          rate,
         }
       }
-    }
-  `);
+    `);
 	}
 </script>
 
-<button on:click={getProducts}>Get the list of products using GraphQL</button>
+<button on:click={getRates}>Get rates</button>
 
-{#if products}
-	{#if $products.loading}
+{#if rates}
+	{#if $rates.loading}
 		Loading...
-	{:else if $products.error}
-		Error: {$products.error.message}
+	{:else if $rates.error}
+		Error: {$rates.error.message}
 	{:else}
 		<ul>
-			{#each $products.data.products.edges as product}
+			{#each $rates.data.rates.slice(0, 5) as rate}
 				<li>
-					Product: {product.node.title}
+					1 USD = {rate.rate} {rate.currency}
 				</li>
 			{/each}
 		</ul>

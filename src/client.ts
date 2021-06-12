@@ -21,17 +21,17 @@ export interface SvelteApolloClient<T> extends ApolloClient<T> {
 
 	query: <TData = unknown, TVariables = unknown>(
 		query: DocumentNode,
-		options: Omit<WatchQueryOptions<TVariables, TData>, "query">
+		options?: Omit<WatchQueryOptions<TVariables, TData>, "query">
 	) => ReadableQuery<TData>,
 
 	mutate: <T = unknown, TVariables = unknown>(
 		mutation: DocumentNode,
-		options: MutateOptions<T, TVariables>
+		options?: MutateOptions<T, TVariables>
 	) => Promise<FetchResult<T>>
 
 	restore: <TData = unknown, TVariables = OperationVariables>(
 		query: DocumentNode,
-		options: Omit<DataProxy.WriteQueryOptions<TData, TVariables>, "query">
+		options?: Omit<DataProxy.WriteQueryOptions<TData, TVariables>, "query">
 	) => void
 
 	subscribe: <TData = unknown, TVariables = unknown> (
