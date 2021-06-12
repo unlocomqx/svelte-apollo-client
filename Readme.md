@@ -84,7 +84,7 @@ import { client } from 'path/to/client';
 ## Mutation
 
 ```svelte
-<script lang='ts'>
+<script>
 
   import { gql } from '@apollo/client/core';
   import { client } from './graphql/client';
