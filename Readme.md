@@ -85,7 +85,6 @@ import { client } from 'path/to/client';
 
 ```svelte
 <script>
-
   import { gql } from '@apollo/client/core';
   import { client } from './graphql/client';
 
