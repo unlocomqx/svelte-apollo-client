@@ -9,6 +9,10 @@ describe("client", () => {
       cache: new InMemoryCache()
     });
 
-    expect(client).toBeDefined();
+    expect(typeof client).toBe("object");
+    expect(typeof client.query).toBe("function");
+    expect(typeof client.mutate).toBe("function");
+    expect(typeof client.restore).toBe("function");
+    expect(typeof client.subscribe).toBe("function");
   });
 });
