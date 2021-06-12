@@ -48,7 +48,7 @@ export function SvelteApolloClient<T> (options: SvelteApolloClientOption<T>): Sv
 		_query: DocumentNode,
 		options: Omit<WatchQueryOptions<TVariables, TData>, "query"> = {}
 	) {
-		return query(apolloClient, _query, options);
+		return query(apolloClient as any, _query, options);
 	};
 
 	const originalMutateFn = apolloClient.mutate;
@@ -64,7 +64,7 @@ export function SvelteApolloClient<T> (options: SvelteApolloClientOption<T>): Sv
 		query: DocumentNode,
 		options: Omit<DataProxy.WriteQueryOptions<TData, TVariables>, "query">
 	) {
-		return restore(apolloClient, query, options);
+		return restore(apolloClient as any, query, options);
 	};
 
 	(apolloClient as any).subscribe = function <TData = unknown, TVariables = unknown> (

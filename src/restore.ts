@@ -1,16 +1,17 @@
-import type { ApolloClient, DataProxy, OperationVariables } from "@apollo/client";
+import type { DataProxy, OperationVariables } from "@apollo/client";
 import type { DocumentNode } from "graphql";
 import { onMount } from "svelte";
+import { SvelteApolloClient } from "./client";
 
 export type Restoring<TCache> =
-	| WeakSet<ApolloClient<TCache>>
-	| Set<ApolloClient<TCache>>;
+	| WeakSet<SvelteApolloClient<TCache>>
+	| Set<SvelteApolloClient<TCache>>;
 
 export const restoring: Restoring<unknown> =
 	typeof WeakSet !== "undefined" ? new WeakSet() : new Set();
 
 export function restore<TData = unknown, TVariables = OperationVariables> (
-	client: ApolloClient<any>,
+	client: SvelteApolloClient<any>,
 	query: DocumentNode,
 	options: Omit<DataProxy.WriteQueryOptions<TData, TVariables>, "query">
 ): void {
