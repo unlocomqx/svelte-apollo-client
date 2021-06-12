@@ -9,6 +9,7 @@ export async function read<TValue = any> (
 	await tick();
 
 	unsubscribe();
+
 	return results;
 }
 

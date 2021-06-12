@@ -36,7 +36,7 @@ export interface SvelteApolloClient<T> extends ApolloClient<T> {
 
 	subscribe: <TData = unknown, TVariables = unknown> (
 		query: DocumentNode,
-		options: Omit<SubscriptionOptions<TVariables>, "query">
+		options?: Omit<SubscriptionOptions<TVariables>, "query">
 	) => ReadableResult<TData>
 }
 
