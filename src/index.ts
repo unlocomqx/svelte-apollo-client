@@ -1,0 +1,1 @@
+export { SvelteApolloClient } from "./client";
