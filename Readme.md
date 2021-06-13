@@ -213,3 +213,29 @@ client.subscribe(document[, options])
   New Book: {$newBooks.data.book}
 {/if}
 ```
+
+## Restore
+
+Restore a previously executed query (e.g. via preload) into the Apollo cache.
+
+```svelte
+<script context="module">
+  import { client } from "$lib/client";
+  import { GET_BOOKS } from "./queries";
+
+  export async function preload() {
+    return {
+      preloaded: await client.query({ query: GET_BOOKS }),
+    };
+  }
+</script>
+
+<script>
+  import { client } from "$lib/client";
+
+  export let preloaded;
+
+  // Load preloaded values into client's cache
+  client.restore(GET_BOOKS, preloaded);
+</script>
+```
