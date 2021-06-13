@@ -10,12 +10,12 @@ describe("query", () => {
 			}
 		`;
 
-		const client = SvelteApolloClient({
-			cache: new InMemoryCache()
+		const client = new SvelteApolloClient({
+			cache: new InMemoryCache(),
 		});
 
 		client.restore(MESSAGES, { data: { messages: [] } });
 
-		expect(restoring.has(client)).toEqual(true);
+		expect(restoring.has(client as any)).toEqual(true);
 	});
 });

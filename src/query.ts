@@ -1,17 +1,19 @@
 import type { WatchQueryOptions } from "@apollo/client";
+import { ApolloClient } from "@apollo/client/core";
 import type { DocumentNode } from "graphql";
-import { SvelteApolloClient } from "./client";
 import type { ReadableQuery } from "./observable";
 import { Data, observableQueryToReadable } from "./observable";
 import { restoring } from "./restore";
 
-export function query<TData = unknown, TVariables = unknown> (
-	client: SvelteApolloClient<any>,
+export function query<TData = unknown, TVariables = unknown>(
+	client: ApolloClient<any>,
 	query: DocumentNode,
 	options: Omit<WatchQueryOptions<TVariables, TData>, "query"> = {}
 ): ReadableQuery<TData> {
-	const queryOptions = { ...options, query } as WatchQueryOptions<TVariables,
-		TData>;
+	const queryOptions = { ...options, query } as WatchQueryOptions<
+		TVariables,
+		TData
+	>;
 
 	// If client is restoring (e.g. from SSR), attempt synchronous readQuery first
 	let initialValue: TData | undefined;
@@ -29,8 +31,8 @@ export function query<TData = unknown, TVariables = unknown> (
 		observable,
 		initialValue !== undefined
 			? ({
-				data: initialValue
-			} as Data<TData>)
+					data: initialValue,
+			  } as Data<TData>)
 			: undefined
 	);
 

@@ -16,17 +16,15 @@ describe("mutation", () => {
 			}
 		`;
 
-		mockClient.setRequestHandler(
-			SEND_MESSAGE,
-			() => Promise.resolve({ data }));
+		mockClient.setRequestHandler(SEND_MESSAGE, () => Promise.resolve({ data }));
 
-		const client = SvelteApolloClient({
+		const client = new SvelteApolloClient({
 			client: mockClient,
-			cache : new InMemoryCache()
+			cache: new InMemoryCache(),
 		});
 
 		const result = await client.mutate(SEND_MESSAGE, {
-			variables: { message: "Howdy!" }
+			variables: { message: "Howdy!" },
 		});
 
 		expect(result.data).toEqual({ success: 1 });

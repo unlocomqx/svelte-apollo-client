@@ -11,23 +11,21 @@ describe("query", () => {
 		const data = { dog: { id: 1, name: "Rufus", breed: "Poodle" } };
 
 		const GET_DOG = gql`
-      query GetDog ($id: number!) {
-          id
-          breed
-      }
-    `;
+			query GetDog($id: number!) {
+				id
+				breed
+			}
+		`;
 
-		mockClient.setRequestHandler(
-			GET_DOG,
-			() => Promise.resolve({ data }));
+		mockClient.setRequestHandler(GET_DOG, () => Promise.resolve({ data }));
 
-		const client = SvelteApolloClient({
+		const client = new SvelteApolloClient({
 			client: mockClient,
-			cache : new InMemoryCache()
+			cache: new InMemoryCache(),
 		});
 
 		const store = client.query(GET_DOG, {
-			variables: { index: 4 }
+			variables: { index: 4 },
 		});
 
 		const values = await read<Result<any>>(store);
