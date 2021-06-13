@@ -42,6 +42,11 @@ import { client } from 'path/to/client';
 
 ## Query
 
+```js
+client.query(document[, options
+])
+```
+
 ```svelte
 
 <script>
@@ -81,7 +86,12 @@ import { client } from 'path/to/client';
 {/if}
 ```
 
-## Mutation
+## Mutate
+
+```js
+client.mutate(document[, options
+])
+```
 
 ```svelte
 <script>
