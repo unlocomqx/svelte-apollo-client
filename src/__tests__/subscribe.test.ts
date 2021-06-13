@@ -11,16 +11,14 @@ describe("query", () => {
 			}
 		`;
 
-		const client = SvelteApolloClient({
-			cache: new InMemoryCache()
+		const client = new SvelteApolloClient({
+			cache: new InMemoryCache(),
 		});
 
 		(client as any).subscribe = () => {
-			return observableToReadable(Observable.of(
-				{ data: 1 },
-				{ data: 2 },
-				{ data: 3 }
-			));
+			return observableToReadable(
+				Observable.of({ data: 1 }, { data: 2 }, { data: 3 })
+			);
 		};
 
 		const store = client.subscribe(NEW_MESSAGES);
