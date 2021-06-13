@@ -3,7 +3,6 @@ import { SvelteApolloClient } from "../client";
 import { restoring } from "../restore";
 
 describe("query", () => {
-
 	it("should restore client data", async () => {
 		const MESSAGES = gql`
 			query messages {

@@ -4,7 +4,6 @@ import { SvelteApolloClient } from "../client";
 import { observableToReadable } from "../observable";
 
 describe("query", () => {
-
 	it("should subscribe to client data", async () => {
 		const NEW_MESSAGES = gql`
 			subscription newMessages {
