@@ -1,5 +1,7 @@
 # Svelte Apollo Client
 
+[<img src="https://img.shields.io/npm/v/svelte-apollo-client">](https://www.npmjs.com/package/svelte-apollo-client)
+
 Svelte integration for Apollo GraphQL.
 
 Heavily based on [svelte apollo](https://github.com/timhall/svelte-apollo)
