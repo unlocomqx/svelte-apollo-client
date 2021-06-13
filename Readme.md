@@ -42,12 +42,16 @@ import { client } from "path/to/client";
 
 ## Query
 
+Query an Apollo client, returning a readable store of result values.
+Uses Apollo's [`watchQuery`](https://www.apollographql.com/docs/react/api/apollo-client.html#ApolloClient.watchQuery),
+for fetching from the network and watching the local cache for changes.
+If the client is hydrating after SSR, it attempts a `readQuery` to synchronously check the cache for values.
+
 ```text
 client.query(document[, options])
 ```
 
 ```svelte
-
 <script>
   import { client } from "$lib/client";
   import { gql } from "@apollo/client/core";
@@ -85,7 +89,47 @@ client.query(document[, options])
 {/if}
 ```
 
+Reactive variables are supported with `refetch`:
+
+```svelte
+<script>
+  import { client } from "$lib/client";
+  import { SEARCH_BY_AUTHOR } from "./queries";
+
+  export let author;
+  let search = "";
+
+  const books = client.query(SEARCH_BY_AUTHOR, {
+    variables: { author, search },
+  });
+
+  // `books` is refetched when author or search change
+  $: books.refetch({ author, search });
+</script>
+
+Author: {author}
+<label>Search <input type="text" bind:value="{search}" /></label>
+
+<ul>
+  {#if $books.loading}
+    <li>Loading...</li>
+  {:else if $books.error}
+    <li>ERROR: {$books.error.message}</li>
+  {:else if $books.data}
+    {#each $books.data.books as book (book.id)}
+      <li>{book.title}</li>
+    {/each}
+  {:else}
+    <li>No books found</li>
+  {/if}
+</ul>
+```
+
 ## Mutate
+
+Prepare a GraphQL mutation with the Apollo client, using
+Apollo's [mutate](https://www.apollographql.com/docs/react/api/apollo-client.html#ApolloClient.mutate)
+.
 
 ```text
 client.mutate(document[, options])
