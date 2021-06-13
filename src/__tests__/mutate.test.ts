@@ -23,7 +23,7 @@ describe("mutation", () => {
 			cache: new InMemoryCache(),
 		});
 
-		const result = await client.mutate(SEND_MESSAGE, {
+		const result = await client._mutate(SEND_MESSAGE, {
 			variables: { message: "Howdy!" },
 		});
 

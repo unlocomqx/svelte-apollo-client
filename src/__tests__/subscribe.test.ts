@@ -15,13 +15,13 @@ describe("query", () => {
 			cache: new InMemoryCache(),
 		});
 
-		(client as any).subscribe = () => {
+		(client as any)._subscribe = () => {
 			return observableToReadable(
 				Observable.of({ data: 1 }, { data: 2 }, { data: 3 })
 			);
 		};
 
-		const store = client.subscribe(NEW_MESSAGES);
+		const store = client._subscribe(NEW_MESSAGES);
 
 		const values = await read(store);
 		expect(values[0].loading).toEqual(true);

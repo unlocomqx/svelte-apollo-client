@@ -24,7 +24,7 @@ describe("query", () => {
 			cache: new InMemoryCache(),
 		});
 
-		const store = client.query(GET_DOG, {
+		const store = client._query(GET_DOG, {
 			variables: { index: 4 },
 		});
 

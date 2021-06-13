@@ -14,7 +14,7 @@ describe("query", () => {
 			cache: new InMemoryCache(),
 		});
 
-		client.restore(MESSAGES, { data: { messages: [] } });
+		client._restore(MESSAGES, { data: { messages: [] } });
 
 		expect(restoring.has(client as any)).toEqual(true);
 	});
