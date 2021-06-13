@@ -193,9 +193,8 @@ client.mutate(document[, options])
 
 ## Subscribe
 
-Subscribe using an Apollo client, returning a store that is compatible with `{#await $...}`. Uses
-Apollo's [subscribe](https://www.apollographql.com/docs/react/api/apollo-client#ApolloClient.subscribe)
-.
+Subscribe using an Apollo client, returning a store that is compatible with `{#await $...}`.
+Uses Apollo's [subscribe](https://www.apollographql.com/docs/react/api/apollo-client#ApolloClient.subscribe).
 
 ```text
 client.subscribe(document[, options])
