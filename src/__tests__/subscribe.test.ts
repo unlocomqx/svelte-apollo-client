@@ -5,7 +5,7 @@ import { observableToReadable } from "../observable";
 
 describe("query", () => {
 
-	it("should subscrie to client data", async () => {
+	it("should subscribe to client data", async () => {
 		const NEW_MESSAGES = gql`
 			subscription newMessages {
 				message
