@@ -146,3 +146,29 @@ client.mutate(document[, options
   </div>
 </div>
 ```
+
+## Subscribe
+
+Subscribe using an Apollo client, returning a store that is compatible with `{#await $...}`. Uses
+Apollo's [subscribe](https://www.apollographql.com/docs/react/api/apollo-client#ApolloClient.subscribe)
+.
+
+```js
+client.subscribe(document[, options
+])
+```
+
+```svelte
+<script>
+  import { client } from './graphql/client';
+  import { NEW_BOOKS } from "./queries";
+
+  const newBooks = client.subscribe(NEW_BOOKS);
+</script>
+
+{#if $newBooks.loading}
+  Waiting for new books...
+{:else if $newBooks.data}
+  New Book: {$newBooks.data.book}
+{/if}
+```
