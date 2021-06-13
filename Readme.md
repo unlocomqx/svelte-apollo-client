@@ -22,19 +22,19 @@ yarn add @apollo/client graphql
 
 ```js
 // client.ts
-import { InMemoryCache } from '@apollo/client/core';
-import { SvelteApolloClient } from 'svelte-apollo-client';
+import { InMemoryCache } from "@apollo/client/core";
+import { SvelteApolloClient } from "svelte-apollo-client";
 
 export const client = SvelteApolloClient({
-	uri: '/graphql',
-	cache: new InMemoryCache()
+  uri: "/graphql",
+  cache: new InMemoryCache(),
 });
 ```
 
 ### Import the client in your component
 
 ```js
-import { client } from 'path/to/client';
+import { client } from "path/to/client";
 
 // You can use svelte's setContext/getContext to make this client available to all sub-components
 // If you only intend to use on client for your entire app, then importing this client directly is fine
@@ -42,9 +42,8 @@ import { client } from 'path/to/client';
 
 ## Query
 
-```js
-client.query(document[, options
-])
+```text
+client.query(document[, options])
 ```
 
 ```svelte
@@ -88,9 +87,8 @@ client.query(document[, options
 
 ## Mutate
 
-```js
-client.mutate(document[, options
-])
+```text
+client.mutate(document[, options])
 ```
 
 ```svelte
@@ -153,9 +151,8 @@ Subscribe using an Apollo client, returning a store that is compatible with `{#a
 Apollo's [subscribe](https://www.apollographql.com/docs/react/api/apollo-client#ApolloClient.subscribe)
 .
 
-```js
-client.subscribe(document[, options
-])
+```text
+client.subscribe(document[, options])
 ```
 
 ```svelte
