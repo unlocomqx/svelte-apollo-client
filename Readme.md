@@ -44,10 +44,10 @@ import { client } from "path/to/client";
 
 ## Query
 
-Query an Apollo client, returning a readable store of result values.
-Uses Apollo's [`watchQuery`](https://www.apollographql.com/docs/react/api/apollo-client.html#ApolloClient.watchQuery),
-for fetching from the network and watching the local cache for changes.
-If the client is hydrating after SSR, it attempts a `readQuery` to synchronously check the cache for values.
+Query an Apollo client, returning a readable store of result values. Uses
+Apollo's [`watchQuery`](https://www.apollographql.com/docs/react/api/apollo-client.html#ApolloClient.watchQuery)
+, for fetching from the network and watching the local cache for changes. If the client is hydrating
+after SSR, it attempts a `readQuery` to synchronously check the cache for values.
 
 ```text
 client.query(document[, options])
@@ -146,13 +146,9 @@ client.mutate(document[, options])
 
   async function createCustomer () {
     mutation = null;
-    mutation = await client.mutate(gql`mutation {
+    mutation = await client.mutate(gql`mutation customerCreate($input: CustomerInput!) {
       customerCreate(
-        input: {
-          firstName: "name",
-          lastName: "lastname",
-          email: "email@email.com"
-        }
+        input: $input
       )
       {
         customer {
@@ -165,7 +161,15 @@ client.mutate(document[, options])
           message
         }
       }
-    }`);
+    }`, {
+      variables: {
+        input: {
+          firstName: "name",
+          lastName: "lastname",
+          email: "email@email.com"
+        }
+      }
+    });
   }
 </script>
 
@@ -193,8 +197,9 @@ client.mutate(document[, options])
 
 ## Subscribe
 
-Subscribe using an Apollo client, returning a store that is compatible with `{#await $...}`.
-Uses Apollo's [subscribe](https://www.apollographql.com/docs/react/api/apollo-client#ApolloClient.subscribe).
+Subscribe using an Apollo client, returning a store that is compatible with `{#await $...}`. Uses
+Apollo's [subscribe](https://www.apollographql.com/docs/react/api/apollo-client#ApolloClient.subscribe)
+.
 
 ```text
 client.subscribe(document[, options])
