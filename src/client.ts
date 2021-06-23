@@ -46,7 +46,7 @@ export function SvelteApolloClient<T>(
 ): SvelteApolloClient<T> {
 	// If a client was passed in the options, use it. Otherwise create a new client
 	let apolloClient = options?.client ?? new ApolloClient<T>(options);
-	console.log(apolloClient);
+
 	(apolloClient as any).query = function <
 		TData = unknown,
 		TVariables = unknown
