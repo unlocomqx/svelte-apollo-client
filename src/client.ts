@@ -4,7 +4,7 @@ import type {
 	DocumentNode,
 	OperationVariables,
 	SubscriptionOptions,
-	WatchQueryOptions
+	WatchQueryOptions,
 } from "@apollo/client";
 import { FetchResult } from "@apollo/client";
 import { ApolloClient } from "@apollo/client/core";
@@ -14,37 +14,43 @@ import { query } from "./query";
 import { restore } from "./restore";
 import { subscribe } from "./subscribe";
 
-export type SvelteApolloClientOption<T> = ApolloClientOptions<T> & { client?: ApolloClient<T> };
+export type SvelteApolloClientOption<T> = ApolloClientOptions<T> & {
+	client?: ApolloClient<T>;
+};
 
 // @ts-ignore the query functions are not compatible
 export interface SvelteApolloClient<T> extends ApolloClient<T> {
-
 	query: <TData = unknown, TVariables = unknown>(
 		query: DocumentNode,
 		options?: Omit<WatchQueryOptions<TVariables, TData>, "query">
-	) => ReadableQuery<TData>,
+	) => ReadableQuery<TData>;
 
 	mutate: <T = unknown, TVariables = unknown>(
 		mutation: DocumentNode,
 		options?: MutateOptions<T, TVariables>
-	) => Promise<FetchResult<T>>
+	) => Promise<FetchResult<T>>;
 
 	restore: <TData = unknown, TVariables = OperationVariables>(
 		query: DocumentNode,
 		options?: Omit<DataProxy.WriteQueryOptions<TData, TVariables>, "query">
-	) => void
+	) => void;
 
-	subscribe: <TData = unknown, TVariables = unknown> (
+	subscribe: <TData = unknown, TVariables = unknown>(
 		query: DocumentNode,
 		options?: Omit<SubscriptionOptions<TVariables>, "query">
-	) => ReadableResult<TData>
+	) => ReadableResult<TData>;
 }
 
-export function SvelteApolloClient<T> (options: SvelteApolloClientOption<T>): SvelteApolloClient<T> {
+export function SvelteApolloClient<T>(
+	options: SvelteApolloClientOption<T>
+): SvelteApolloClient<T> {
 	// If a client was passed in the options, use it. Otherwise create a new client
 	let apolloClient = options?.client ?? new ApolloClient<T>(options);
-
-	(apolloClient as any).query = function <TData = unknown, TVariables = unknown> (
+	console.log(apolloClient);
+	(apolloClient as any).query = function <
+		TData = unknown,
+		TVariables = unknown
+	>(
 		_query: DocumentNode,
 		options: Omit<WatchQueryOptions<TVariables, TData>, "query"> = {}
 	) {
@@ -53,21 +59,27 @@ export function SvelteApolloClient<T> (options: SvelteApolloClientOption<T>): Sv
 
 	const originalMutateFn = apolloClient.mutate;
 
-	(apolloClient as any).mutate = function <T = unknown, TVariables = unknown> (
+	(apolloClient as any).mutate = function <T = unknown, TVariables = unknown>(
 		mutation: DocumentNode,
 		options: MutateOptions<T, TVariables>
 	) {
 		return originalMutateFn({ mutation, ...options });
 	};
 
-	(apolloClient as any).restore = function <TData = unknown, TVariables = OperationVariables> (
+	(apolloClient as any).restore = function <
+		TData = unknown,
+		TVariables = OperationVariables
+	>(
 		query: DocumentNode,
 		options: Omit<DataProxy.WriteQueryOptions<TData, TVariables>, "query">
 	) {
 		return restore(apolloClient as any, query, options);
 	};
 
-	(apolloClient as any).subscribe = function <TData = unknown, TVariables = unknown> (
+	(apolloClient as any).subscribe = function <
+		TData = unknown,
+		TVariables = unknown
+	>(
 		query: DocumentNode,
 		options: Omit<SubscriptionOptions<TVariables>, "query"> = {}
 	) {
@@ -75,5 +87,5 @@ export function SvelteApolloClient<T> (options: SvelteApolloClientOption<T>): Sv
 	};
 
 	// @ts-ignore
-	return (apolloClient as SvelteApolloClient<T>);
+	return apolloClient as SvelteApolloClient<T>;
 }
