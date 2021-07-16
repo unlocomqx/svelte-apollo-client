@@ -9,10 +9,13 @@ import type {
 import { FetchResult } from "@apollo/client";
 import { ApolloClient } from "@apollo/client/core";
 import { MutateOptions } from "./mutation";
-import { ReadableQuery, ReadableResult } from "./observable";
+import {
+	observableToReadable,
+	ReadableQuery,
+	ReadableResult,
+} from "./observable";
 import { query } from "./query";
 import { restore } from "./restore";
-import { subscribe } from "./subscribe";
 
 export type SvelteApolloClientOption<T> = ApolloClientOptions<T> & {
 	client?: ApolloClient<T>;
@@ -76,6 +79,8 @@ export function SvelteApolloClient<T>(
 		return restore(apolloClient as any, query, options);
 	};
 
+	const _subscribe = (apolloClient as any).subscribe;
+
 	(apolloClient as any).subscribe = function <
 		TData = unknown,
 		TVariables = unknown
@@ -83,7 +88,12 @@ export function SvelteApolloClient<T>(
 		query: DocumentNode,
 		options: Omit<SubscriptionOptions<TVariables>, "query"> = {}
 	) {
-		return subscribe(apolloClient, query, options);
+		const observable = _subscribe({
+			query,
+			...options,
+		});
+
+		return observableToReadable<TData>(observable);
 	};
 
 	// @ts-ignore
