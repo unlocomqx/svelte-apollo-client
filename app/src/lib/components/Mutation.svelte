@@ -32,8 +32,8 @@
 </script>
 
 <span>Ship name</span>
-<input bind:value={shipName} />
-<button on:click={createOrder}>Create order</button>
+<input bind:value={shipName} data-cy="shipName" />
+<button on:click={createOrder} data-cy="mutate">Create order</button>
 
 <p>
 	{#if loading}
