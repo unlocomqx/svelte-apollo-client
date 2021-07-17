@@ -1,7 +1,7 @@
-import { InMemoryCache } from "@apollo/client/cache";
-import { SvelteApolloClient } from "svelte-apollo-client";
+import { InMemoryCache } from '@apollo/client/cache';
+import { SvelteApolloClient } from 'svelte-apollo-client';
 
 export const client = SvelteApolloClient({
-	uri  : "https://48p1r2roz4.sse.codesandbox.io",
+	uri: 'https://graphql-compose.herokuapp.com/northwind/',
 	cache: new InMemoryCache()
 });
