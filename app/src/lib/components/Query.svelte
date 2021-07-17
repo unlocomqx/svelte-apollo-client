@@ -1,39 +1,35 @@
 <script lang="ts">
-	import { InMemoryCache } from "@apollo/client/cache";
 	import { gql } from "@apollo/client/core";
-	import { SvelteApolloClient } from "../../../../src";
+	import { client } from "../client";
 
-	export const client = SvelteApolloClient({
-		uri  : "https://48p1r2roz4.sse.codesandbox.io",
-		cache: new InMemoryCache()
-	});
+	let users;
 
-	let rates;
-
-	function getRates () {
-		rates = client.query(gql`
-      query GetRates {
-        rates(currency: "USD") {
-          currency,
-          rate,
-        }
-      }
+	function getUsers () {
+		users = client.query(gql`
+      query {
+				userMany(limit: 10){
+					name,
+					age
+				}
+			}
     `);
 	}
+
+	$: users && console.log($users)
 </script>
 
-<button on:click={getRates} data-cy="query">Get rates</button>
+<button on:click={getUsers} data-cy="query">Get users</button>
 
-{#if rates}
-	{#if $rates.loading}
+{#if users}
+	{#if $users.loading}
 		Loading...
-	{:else if $rates.error}
-		Error: {$rates.error.message}
+	{:else if $users.error}
+		Error: {$users.error.message}
 	{:else}
-		<ul>
-			{#each $rates.data.rates.slice(0, 5) as rate}
+		<ul data-cy="users">
+			{#each $users.data.userMany as user}
 				<li>
-					1 USD = {rate.rate} {rate.currency}
+					{user.name} ({user.age} years old)
 				</li>
 			{/each}
 		</ul>
