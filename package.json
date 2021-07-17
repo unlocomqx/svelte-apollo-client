@@ -45,5 +45,9 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "apollo-link-ws": "^1.0.20",
+    "ws": "^7.5.3"
+  }
 }

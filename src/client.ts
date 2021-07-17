@@ -79,7 +79,7 @@ export function SvelteApolloClient<T>(
 		return restore(apolloClient as any, query, options);
 	};
 
-	const _subscribe = (apolloClient as any).subscribe;
+	const _subscribe = (apolloClient as any).subscribe.bind(apolloClient);
 
 	(apolloClient as any).subscribe = function <
 		TData = unknown,
