@@ -15,7 +15,7 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "prepublishOnly": "npm run build && npm run test && npm run e2e:test",
-    "test": "jest",
+    "test": "jest src/__tests__",
     "serve:app": "npm run dev --prefix app",
     "cypress:run": "cypress run",
     "e2e:test": "npm run build && start-server-and-test serve:app http://localhost:3000 cypress:run"
