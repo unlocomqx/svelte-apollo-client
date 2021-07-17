@@ -1,6 +1,20 @@
 <script>
 	import Query from "$lib/components/Query.svelte";
-</script><h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+	import Subscription from "../lib/components/Subscription.svelte";
+	import Mutation from "../lib/components/Mutation.svelte";
+</script>
 
-<Query />
+<div>
+	<h2>Query</h2>
+	<Query />
+</div>
+
+<div>
+	<h2>Subscription</h2>
+	<Subscription />
+</div>
+
+<div>
+	<h2>Mutation</h2>
+	<Mutation />
+</div>
