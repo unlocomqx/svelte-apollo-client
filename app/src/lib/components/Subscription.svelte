@@ -49,11 +49,11 @@
 	$: newOrders && console.log($newOrders);
 </script>
 
-<button on:click={getRates}>Subscribe</button>
+<button on:click={getRates} data-cy="subscribe">Subscribe</button>
 <span>(click the mutation button afterwards)</span>
 
 {#if newOrders}
-	<p>
+	<p data-cy="subscribe_result">
 		{#if $newOrders.loading}
 			Waiting for new orders...
 		{:else if $newOrders.data}

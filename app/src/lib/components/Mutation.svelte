@@ -35,7 +35,7 @@
 <input bind:value={shipName} data-cy="shipName" />
 <button on:click={createOrder} data-cy="mutate">Create order</button>
 
-<p>
+<p data-cy="mutate_result">
 	{#if loading}
 		loading...
 	{:else}

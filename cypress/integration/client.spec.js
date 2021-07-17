@@ -16,17 +16,19 @@ describe("Client test", () => {
 			.type("ship")
 			.get("[data-cy=mutate]")
 			.click()
-			.get("p")
+			.get("p[data-cy=mutate_result]")
 			.contains("Created new order: ship");
 	});
 
-	it.only("should subscribe to data", () => {
-		cy.get("[data-cy=shipName]")
+	it("should subscribe to data", () => {
+		cy.get(`[data-cy=subscribe]`)
+			.click()
+			.get("[data-cy=shipName]")
 			.clear()
 			.type("ship")
 			.get("[data-cy=mutate]")
 			.click()
-			.get("p")
-			.contains("Created new order: ship");
+			.get("p[data-cy=subscribe_result]")
+			.contains("New Order: ship");
 	});
 });
