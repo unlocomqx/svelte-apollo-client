@@ -1,6 +1,6 @@
 {
   "name": "svelte-apollo-client",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Svelte integration for Apollo GraphQL.",
   "main": "dist/svelte-apollo-client.cjs.js",
   "repository": "https://github.com/unlocomqx/svelte-apollo-client",
