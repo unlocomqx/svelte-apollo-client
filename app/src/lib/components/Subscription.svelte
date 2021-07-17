@@ -4,7 +4,7 @@
 	import { gql, HttpLink, split } from "@apollo/client/core";
 	import { WebSocketLink } from "@apollo/client/link/ws";
 	import { getMainDefinition } from "@apollo/client/utilities";
-	import { SvelteApolloClient } from "svelte-apollo-client";
+	import { SvelteApolloClient } from "../../../../src";
 
 	const wsLink = browser ? new WebSocketLink({ // if you instantiate in the server, the error will be thrown
 		uri    : `wss://graphql-compose.herokuapp.com/northwind`,
@@ -46,7 +46,7 @@
     `);
 	}
 
-	$: newOrders && console.log($newOrders)
+	$: newOrders && console.log($newOrders);
 </script>
 
 <button on:click={getRates}>Subscribe</button>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { InMemoryCache } from "@apollo/client/cache";
 	import { gql } from "@apollo/client/core";
-	import { SvelteApolloClient } from "svelte-apollo-client";
+	import { SvelteApolloClient } from "../../../../src";
 
 	export const client = SvelteApolloClient({
 		uri  : "https://48p1r2roz4.sse.codesandbox.io",
@@ -22,7 +22,7 @@
 	}
 </script>
 
-<button on:click={getRates}>Get rates</button>
+<button on:click={getRates} data-cy="query">Get rates</button>
 
 {#if rates}
 	{#if $rates.loading}
